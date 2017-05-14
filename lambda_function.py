@@ -20,7 +20,7 @@ def lambda_handler(event, context):
     welcome_message = 'Hi! Welcome to our Vize Survey about your workplace! Would you like to respond to this ' \
                       'survey? (Yes/No)'
 
-    twilio_send_number = 'send number'
+    twilio_send_number = '+17075959842'
 
     with open('Survey-Numbers.txt', 'r') as number_file:
         survey_location = number_file.readline()
