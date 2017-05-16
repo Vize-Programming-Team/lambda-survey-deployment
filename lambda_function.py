@@ -1,6 +1,7 @@
 import os
 import boto3
 from math import floor
+import urllib
 
 from boto3.session import Session
 from twilio.twiml.messaging_response import MessagingResponse
@@ -17,6 +18,7 @@ dynamodb = boto3.resource('dynamodb','us-west-2')
 table_users = dynamodb.Table('User_Data')
 
 def lambda_handler(event, context):
+    print(event)
     response = MessagingResponse()
     numbers = []
     phase_size = 20
@@ -26,14 +28,16 @@ def lambda_handler(event, context):
 
     twilio_send_number = '+17075959842'
 
-    input_message = event['Body'].split()
+    input_message = event['Body'].replace('+', ' ')
+    input_message = input_message.split()
+    print(input_message)
     command = input_message[0]
 
     with open('Survey-Numbers.txt', 'r') as number_file:
-        survey_location = number_file.readline()
+        survey_location = number_file.readline().strip()
 
         for line in number_file:
-            table_users.put_item(Item={'Survey_Code': survey_location, 'Code': 1, 'Number': line.split(), 'Questions': [],
+            table_users.put_item(Item={'Survey_Code': line.strip(), 'Code': 1, 'Location': survey_location, 'Questions': [],
                                        'Responded': 0, 'Completed': 0, })
             numbers.append(line.strip())
 
@@ -42,12 +46,15 @@ def lambda_handler(event, context):
     phases.append(numbers[(len(phases)*phase_size):])
 
     if command.lower() == 'deploy':
-        phase = int(input_message[1])
+        if len(input_message) > 1:
+            phase = int(input_message[1])
+        else:
+            return str(response.message('You are missing a phase number'))
     else:
         return str(response.message('Command not recognized'))
 
     if (phase <= len(phases)) and phase > 0:
-        for number in phases[phase-1]:
+        for number in range(len(phases[phase-1])):
             response.message(welcome_message, to=numbers[number], from_=twilio_send_number)
     else:
         return str(response.message('There are not that many phases. There are a total of %i phases.' % len(phases)))
