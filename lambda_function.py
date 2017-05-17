@@ -70,6 +70,7 @@ def lambda_handler(event, context):
     if (phase <= len(phases)) and phase > 0:
         for number in range(len(phases[phase-1])):
             response.message(welcome_message, to=numbers[number], from_=twilio_send_number)
+            response.message(response.message('Phase %i has been deployed' % phase))
     else:
         return str(response.message('There are not that many phases. There are a total of %i phases.' % len(phases)))
 
