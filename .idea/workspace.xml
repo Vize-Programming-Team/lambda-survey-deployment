@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c97c37e7-157a-4844-901b-e5ca7846cc87" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lambda_deployment_function.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda_function.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/deployment.zip" afterPath="$PROJECT_DIR$/deployment.zip" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lambda_deployment_function.py" afterPath="$PROJECT_DIR$/lambda_deployment_function.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,8 +17,8 @@
       <file leaf-file-name="lambda_deployment_function.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lambda_deployment_function.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="974">
-              <caret line="62" column="4" lean-forward="false" selection-start-line="62" selection-start-column="4" selection-end-line="62" selection-end-column="4" />
+            <state relative-caret-position="784">
+              <caret line="67" column="36" lean-forward="true" selection-start-line="67" selection-start-column="36" selection-end-line="67" selection-end-column="36" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -57,6 +54,7 @@
         <option value="$PROJECT_DIR$/__init__.py" />
         <option value="$PROJECT_DIR$/Survey-Numbers.txt" />
         <option value="$PROJECT_DIR$/lambda_function.py" />
+        <option value="$PROJECT_DIR$/lambda_deployment_function.py" />
       </list>
     </option>
   </component>
@@ -204,6 +202,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1060" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17776585" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -347,8 +346,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lambda_deployment_function.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="974">
-          <caret line="62" column="4" lean-forward="false" selection-start-line="62" selection-start-column="4" selection-end-line="62" selection-end-column="4" />
+        <state relative-caret-position="784">
+          <caret line="67" column="36" lean-forward="true" selection-start-line="67" selection-start-column="36" selection-end-line="67" selection-end-column="36" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
