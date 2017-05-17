@@ -17,6 +17,8 @@ auth_token = os.environ['AUTH_TOKEN']
 dynamodb = boto3.resource('dynamodb','us-west-2')
 table_users = dynamodb.Table('User_Data')
 
+identify_key = 'Survey_Code'
+
 def lambda_handler(event, context):
     print(event)
     response = MessagingResponse()
@@ -28,6 +30,7 @@ def lambda_handler(event, context):
 
     twilio_send_number = '+17075959842'
 
+    from_number = urllib.parse.unquote(event['From'])
     input_message = event['Body'].replace('+', ' ')
     input_message = input_message.split()
     print(input_message)
@@ -37,7 +40,7 @@ def lambda_handler(event, context):
         survey_location = number_file.readline().strip()
 
         for line in number_file:
-            table_users.put_item(Item={'Survey_Code': line.strip(), 'Code': 1, 'Location': survey_location, 'Questions': [],
+            table_users.put_item(Item={identify_key: line.strip(), 'Code': 1, 'Location': survey_location, 'Questions': [],
                                        'Responded': 0, 'Completed': 0, })
             numbers.append(line.strip())
 
@@ -49,9 +52,20 @@ def lambda_handler(event, context):
         if len(input_message) > 1:
             phase = int(input_message[1])
         else:
-            return str(response.message('You are missing a phase number'))
+            return str(response.message('Error: Missing a phase number'))
+    elif command.lower() == 'clear':
+        if len(input_message) > 1:
+            if input_message[1].lower == 'responses':
+                table_users.update_item(Key={identify_key: from_number, }, UpdateExpression="set Questions = :m",
+                                  ExpressionAttributeValues={':m': []}, ReturnValues="UPDATED_NEW")
+                return str(response.message('Your responses have been cleared'))
+            else:
+                return str(response.message('Error: We did not understand what you wanted to clear.'))
+        else:
+            table_users.delete_item(Key={identify_key: from_number})
+            return str(response.message("Your data has been cleared"))
     else:
-        return str(response.message('Command not recognized'))
+        return str(response.message('Error: Command not recognized'))
 
     if (phase <= len(phases)) and phase > 0:
         for number in range(len(phases[phase-1])):
