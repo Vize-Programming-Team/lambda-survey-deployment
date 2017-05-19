@@ -25,8 +25,10 @@ def lambda_handler(event, context):
     numbers = []
     phase_size = 20
 
-    welcome_message = 'Hi! Welcome to our Vize Survey about your workplace! Would you like to respond to this ' \
-                      'survey? (Yes/No)'
+    welcome_message = 'Hi! Welcome to our Vize Survey about your workplace! To go back and continue an answer ' \
+                      'for a question, send "<<"\n'
+    questions = table_users.get_item(Key={identify_key: 'Questions'})['Item']['Questions']
+    first_question = questions[0]
 
     twilio_send_number = '+17075959842'
 
@@ -54,7 +56,8 @@ def lambda_handler(event, context):
 
             if (phase <= len(phases)) and phase > 0:
                 for number in range(len(phases[phase - 1])):
-                    response.message(welcome_message, to=numbers[number], from_=twilio_send_number)
+                    response.message(welcome_message+first_question, to=numbers[number], from_=twilio_send_number)
+
                 response.message('Phase %i has been deployed' % phase)
             else:
                 return str(response.message('There are not that many phases. There are a total of %i phases.'
