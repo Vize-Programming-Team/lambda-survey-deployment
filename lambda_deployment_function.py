@@ -25,7 +25,8 @@ def lambda_handler(event, context):
     numbers = []
     phase_size = 20
 
-    welcome_message = 'Hi! Welcome to our Vize Survey about your workplace! Would you like to respond to this ' \
+    welcome_message = 'Hi! Welcome to our Vize Survey about your workplace! To go back and continue an answer' \
+                      'for a question, send "<<"\nWould you like to respond to this ' \
                       'survey? (Yes/No)'
 
     twilio_send_number = '+17075959842'
@@ -62,7 +63,7 @@ def lambda_handler(event, context):
 
             for num in range(len(numbers)):
                 table_users.put_item(Item={identify_key: numbers[num], 'Code': phase, 'Location': survey_location,
-                                           'Questions': [], 'Responded': 0, 'Completed': 0, })
+                                           'Questions': [], 'Responded': 0, 'Completed': 0, 'Previous': False})
         else:
             response.message('Error: Missing a phase number')
     elif command.lower() == 'clear':
