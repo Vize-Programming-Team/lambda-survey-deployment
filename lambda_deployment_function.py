@@ -65,7 +65,7 @@ def lambda_handler(event, context):
 
             for num in range(len(numbers)):
                 table_users.put_item(Item={identify_key: numbers[num], 'Code': phase, 'Location': survey_location,
-                                           'Questions': [], 'Responded': 0, 'Completed': 0, })
+                                           'Questions': [], 'Responded': 0, 'Completed': 0, 'Previous': False})
         else:
             response.message('Error: Missing a phase number')
     elif command.lower() == 'clear':
