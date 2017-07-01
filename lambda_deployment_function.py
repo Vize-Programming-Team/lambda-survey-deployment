@@ -17,7 +17,7 @@ auth_token = os.environ['AUTH_TOKEN']
 dynamodb = boto3.resource('dynamodb','us-east-1')
 table_users = dynamodb.Table('user-data')
 
-identify_key = 'Survey_Code'
+identify_key = 'ID'
 
 def lambda_handler(event, context):
     print(event)
