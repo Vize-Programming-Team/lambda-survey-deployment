@@ -14,8 +14,8 @@ account_sid = os.environ['ACCOUNT_SID']
 auth_token = os.environ['AUTH_TOKEN']
 
 # Add DynamoDB
-dynamodb = boto3.resource('dynamodb','us-west-2')
-table_users = dynamodb.Table('User_Data')
+dynamodb = boto3.resource('dynamodb','us-east-1')
+table_users = dynamodb.Table('user-data')
 
 identify_key = 'Survey_Code'
 
