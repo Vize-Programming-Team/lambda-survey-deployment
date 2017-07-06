@@ -25,9 +25,11 @@ def lambda_handler(event, context):
     numbers = []
     phase_size = 20
 
-    welcome_message = 'Hi! Welcome to our Vize Survey about your workplace! To go back and continue an answer' \
-                      'for a question, send "<<"\nWould you like to respond to this ' \
-                      'survey? (Yes/No)'
+    welcome_message = "Hi! Welcome to our Vize Survey. Thanks for helping us test our system. The first question is " \
+                      "right below this, and each time you reply the next question will automatically come your way." \
+                      "If you want to go back to the previous question just send '<<' to us and we'll resend the " \
+                      "previous question. Thanks again!\nWould you like to respond to this ' \
+                      'survey? (Yes/No)"
 
     twilio_send_number = '+17075959842'
 
@@ -55,15 +57,15 @@ def lambda_handler(event, context):
 
             if (phase <= len(phases)) and phase > 0:
                 for number in range(len(phases[phase - 1])):
-                    response.message(welcome_message, to=numbers[number], from_=twilio_send_number)
+                    response.message(welcome_message, to=phases[phase - 1][number], from_=twilio_send_number)
+                    table_users.put_item(Item={identify_key: phases[phase - 1][number], 'Code': phase, 'Location': survey_location,
+                                               'Questions': [], 'Responded': 0, 'Completed': 0, 'Previous': False})
+
                 response.message('Phase %i has been deployed' % phase)
             else:
                 return str(response.message('There are not that many phases. There are a total of %i phases.'
                                             % len(phases)))
 
-            for num in range(len(numbers)):
-                table_users.put_item(Item={identify_key: numbers[num], 'Code': phase, 'Location': survey_location,
-                                           'Questions': [], 'Responded': 0, 'Completed': 0, 'Previous': False})
         else:
             response.message('Error: Missing a phase number')
     elif command.lower() == 'clear':
